@@ -1,8 +1,8 @@
 <template>
     <div class="main-window">
         <div>
-            <div v-if="$route.path == '/news'">
-                <div class="news-div" id="top">
+            <div v-if="$route.path == '/notice'">
+                <div class="notice-div" id="top">
                     <div class="guide-div">
                         <div class="page-bar">
                             <el-pagination
@@ -14,7 +14,7 @@
                                 background
                             ></el-pagination>
                         </div>
-                        <div>
+                        <!-- <div>
                             <div class="guide-btn cool-btn">
                                 精华区
                             </div>
@@ -24,14 +24,14 @@
                             >
                                 发帖
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="table-div">
                         <el-table :data="tableData" stripe>
                             <el-table-column
                                 label="标题"
                                 prop="title"
-                                width="600px"
+                                
                             >
                                 <template slot-scope="scope">
                                     <router-link to="/read">
@@ -44,10 +44,7 @@
                             <el-table-column
                                 label="发布时间"
                                 prop="createTime"
-                            ></el-table-column>
-                            <el-table-column
-                                label="最后回复"
-                                prop="lastTime"
+                                width="130px"
                             ></el-table-column>
                         </el-table>
                     </div>
@@ -69,13 +66,12 @@
                         >
                             <i class="el-icon-arrow-up" />
                         </div>
-                        <div class="guide-btn cool-btn">
+                        <!-- <div class="guide-btn cool-btn">
                             精华区
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <!-- <v-reply /> -->
-                <v-add />
             </div>
             <router-view />
         </div>
@@ -83,22 +79,20 @@
     </div>
 </template>
 <script>
-import { newsData } from './NewsData.js'
+import { noticeData } from './noticeData.js'
 // import Reply from '../reply/Reply.vue'
-import Aside from './Aside.vue'
-import Add from './Add.vue'
+import Aside from './Aside'
 export default {
-    name: 'News',
+    name: 'notice',
 
     components: {
         // 'v-reply': Reply,
-        'v-aside': Aside,
-        'v-add': Add
+        'v-aside': Aside
     },
 
     data() {
         return {
-            newsData,
+            noticeData,
             pageSize: 30,
             currentPage: 0,
             tableData: []
@@ -110,13 +104,13 @@ export default {
 
     computed: {
         tableLen() {
-            return this.newsData.length
+            return this.noticeData.length
         }
     },
     methods: {
         pageChange(value) {
             this.currentPage = value
-            this.tableData = this.newsData.slice(
+            this.tableData = this.noticeData.slice(
                 (value - 1) * this.pageSize,
                 value * this.pageSize
             )
@@ -145,7 +139,7 @@ export default {
     width: 1200px;
     margin: auto;
 }
-.news-div {
+.notice-div {
     width: 900px;
     /* height: 1000px; */
     margin: auto;
@@ -165,34 +159,34 @@ export default {
     border-color: #c0c4cc;
     outline: none;
 }
-.news-div >>> .el-pagination {
+.notice-div >>> .el-pagination {
     /* padding-left: 10px; */
     float: left;
 }
-.news-div >>> .el-pagination.is-background .el-pager li:not(.disabled):hover {
+.notice-div >>> .el-pagination.is-background .el-pager li:not(.disabled):hover {
     color: #333333;
 }
-.news-div >>> .el-pagination.is-background .el-pager li:not(.disabled).active {
+.notice-div >>> .el-pagination.is-background .el-pager li:not(.disabled).active {
     background: #333333;
     color: #ffeb38;
 }
-/* .news-div >>> .el-pagination.is-background .btn-next {
+/* .notice-div >>> .el-pagination.is-background .btn-next {
     background: #333333;
     color: #ffeb38;
 }
-.news-div >>> .el-pagination.is-background .btn-prev {
+.notice-div >>> .el-pagination.is-background .btn-prev {
     background: #333333;
     color: #ffeb38;
 }
-.news-div >>> .el-pagination.is-background .btn-next:disabled {
+.notice-div >>> .el-pagination.is-background .btn-next:disabled {
     background: #333333;
     color: #ffeb3888;
 }
-.news-div >>> .el-pagination.is-background .btn-prev:disabled {
+.notice-div >>> .el-pagination.is-background .btn-prev:disabled {
     background: #333333;
     color: #ffeb3888;
 } */
-.news-div >>> .el-pagination.is-background .el-pager li {
+.notice-div >>> .el-pagination.is-background .el-pager li {
     color: #aaaaaa;
 }
 /* .guide-btn {

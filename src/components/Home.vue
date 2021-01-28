@@ -15,7 +15,7 @@
                         <router-link to="/news"> <div>新闻</div></router-link>
                     </li>
                     <li>
-                        <a>公告</a>
+                        <router-link to="/notice"> <div>公告</div></router-link>
                     </li>
                 </ul>
             </div>
@@ -65,28 +65,31 @@
             </div>
         </div>
 
-        <router-view> </router-view>
+        <router-view></router-view>
 
         <div class="home-div" v-if="$route.path == '/'">
             <div class="zone-div">
                 <!-- <div class="guide-div" ></div> -->
                 <div
                     class="zone-content"
-                    v-for="item in zoneShowed"
-                    :key="item"
+                    v-for="(item, index) in zoneShowed"
+                    :key="'zoneShowed' + index"
                 >
                     <h2>{{ item.name }}</h2>
                     <div
                         class="zone-content-class"
-                        v-for="type in item.child"
-                        :key="type"
+                        v-for="(type, index) in item.child"
+                        :key="index"
                     >
                         <img
                             class="zone-class-img"
                             :src="`/static/image/${type.name}.jpg`"
                         />
                         <ul>
-                            <li v-for="game in type.child" :key="game">
+                            <li
+                                v-for="(game, index) in type.child"
+                                :key="index"
+                            >
                                 <img :src="`/static/image/${game.name}.jpg`" />
                                 <div class="zone-content-game">
                                     <h5 :title="game.name">
@@ -101,13 +104,18 @@
                     </div>
                 </div>
 
-                <div class="zone-content" v-for="item in ps4" :key="item">
+
+                <div
+                    class="zone-content"
+                    v-for="(item, index) in ps4"
+                    :key="'ps4' + index"
+                >
                     <h2>{{ item.name }}</h2>
                     <div class="zone-content-ps4-1">
                         <div
                             class="ps4-big"
                             v-for="(game, index) in item.child"
-                            :key="game"
+                            :key="index"
                         >
                             <div>
                                 <img :src="`/static/image/${game.name}.jpg`" />
@@ -202,8 +210,16 @@ import { zoneShowed } from './ZoneShowed.js'
 import { ps4 } from './PS4.js'
 import { news } from './News.js'
 import { notice } from './Notice.js'
+import api from '../../api.js'
 export default {
-    mounted() {},
+    mounted() {
+        api.getNintendoGames().then(json => {
+            console.log(json)
+        })
+        api.getPS4Games().then(json => {
+            console.log(json)
+        })
+    },
 
     data() {
         return {
@@ -263,7 +279,6 @@ export default {
     height: 100%;
     cursor: pointer;
     padding: 0 10px;
-
 }
 .logo-div img {
     height: 30px;

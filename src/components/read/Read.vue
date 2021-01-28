@@ -48,8 +48,8 @@
                                 <div class="reply-in-reply" v-if="item.reply">
                                     <ul>
                                         <li
-                                            v-for="reply in item.reply"
-                                            :key="reply"
+                                            v-for="(reply, index) in item.reply"
+                                            :key="index"
                                         >
                                             <img
                                                 class="re-in-re-img"
